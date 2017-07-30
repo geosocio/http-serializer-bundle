@@ -16,8 +16,6 @@ class GeoSocioHttpSerializerBundle extends Bundle
             $this->extension = $extension ?? false;
         }
 
-        if ($this->extension) {
-            return $this->extension;
-        }
+        return $this->extension ?? null;
     }
 }
