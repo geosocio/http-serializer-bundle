@@ -75,7 +75,7 @@ class GeoSocioHttpSerializerExtension extends Extension
 
         // Exception Normalizer
         $container->register('geosocio_http_serializer.serializer_exception', ExceptionNormalizer::class)
-            ->setArgumetns([
+            ->setArguments([
                 '%kernel.environment%'
             ])
             ->setTags([
