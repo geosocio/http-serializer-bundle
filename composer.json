@@ -2,7 +2,7 @@
     "name": "geosocio/http-serializer-bundle",
     "description": "Symfony Bundle for Serializing Http Requests & Responses",
     "type": "symfony-bundle",
-    "license": "LGPA-3",
+    "license": "MIT",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
