@@ -3,14 +3,14 @@
 namespace GeoSocio\HttpSerializerBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
 
 /**
- * This is the class that validates and merges configuration from your app/config files.
+ * {@inheritdoc}
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/configuration.html}
  */
-class Configuration implements ConfigurationInterface
+class Configuration implements ConfigurationExtensionInterface
 {
     /**
      * {@inheritdoc}
@@ -20,9 +20,11 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('geosocio_http_serializer');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+                ->scalarNode('default_format')->end()
+            ->end()
+        ->end();
 
         return $treeBuilder;
     }
