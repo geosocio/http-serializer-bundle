@@ -80,7 +80,10 @@ class GeoSocioHttpSerializerExtension extends Extension
             ->setPublic(false);
 
         // Constraint Violation Normalizer
-        $container->register('geosocio_http_serializer.serializer_constraint_violation', ConstraintViolationNormalizer::class)
+        $container->register(
+            'geosocio_http_serializer.serializer_constraint_violation',
+            ConstraintViolationNormalizer::class
+        )
             ->addTag('serializer.normalizer')
             ->setPublic(false);
 
