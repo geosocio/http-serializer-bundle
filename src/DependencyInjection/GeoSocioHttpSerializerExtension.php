@@ -47,12 +47,7 @@ class GeoSocioHttpSerializerExtension extends Extension
                 new Reference('geosocio_http_serializer.group_loader'),
                 new Reference('event_dispatcher')
             ])
-            ->setTags([
-                [
-                    'name' => 'kernel.event_listener',
-                    'event' => 'kernel.view'
-                ]
-            ])
+            ->addTag('kernel.event_listener', ['event' => 'kernel.view'])
             ->setPublic(false);
 
         // Exception Listener
@@ -65,12 +60,7 @@ class GeoSocioHttpSerializerExtension extends Extension
                 new Reference('event_dispatcher'),
                 $config['default_format'] ?? null
             ])
-            ->setTags([
-                [
-                    'name' => 'kernel.event_listener',
-                    'event' => 'kernel.exception'
-                ]
-            ])
+            ->addTag('kernel.event_listener', ['event' => 'kernel.exception'])
             ->setPublic(false);
 
         // Exception Normalizer
@@ -78,20 +68,12 @@ class GeoSocioHttpSerializerExtension extends Extension
             ->setArguments([
                 '%kernel.environment%'
             ])
-            ->setTags([
-                [
-                    'name' => 'serializer.normalizer',
-                ]
-            ])
+            ->addTag('serializer.normalizer')
             ->setPublic(false);
 
         // Constraint Violation Normalizer
         $container->register('geosocio_http_serializer.serializer_exception', ConstraintViolationNormalizer::class)
-            ->setTags([
-                [
-                    'name' => 'serializer.normalizer',
-                ]
-            ])
+            ->addTag('serializer.normalizer')
             ->setPublic(false);
 
         // Content Class Resolver
@@ -105,11 +87,7 @@ class GeoSocioHttpSerializerExtension extends Extension
                 new Reference('event_dispatcher'),
                 new Reference('validator')
             ])
-            ->setTags([
-                [
-                    'name' => 'controller.argument_value_resolver',
-                ]
-            ])
+            ->addTag('controller.argument_value_resolver')
             ->setPublic(false);
 
         // Content Array Resolver
@@ -117,11 +95,7 @@ class GeoSocioHttpSerializerExtension extends Extension
             ->setArguments([
                 new Reference('serializer')
             ])
-            ->setTags([
-                [
-                    'name' => 'controller.argument_value_resolver',
-                ]
-            ])
+            ->addTag('controller.argument_value_resolver')
             ->setPublic(false);
     }
 }
