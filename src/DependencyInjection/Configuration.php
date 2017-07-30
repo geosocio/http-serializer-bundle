@@ -3,14 +3,14 @@
 namespace GeoSocio\HttpSerializerBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * {@inheritdoc}
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/configuration.html}
  */
-class Configuration implements ConfigurationExtensionInterface
+class Configuration implements ConfigurationInterface
 {
     /**
      * {@inheritdoc}
