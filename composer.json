@@ -1,0 +1,40 @@
+{
+    "name": "geosocio/http-serializer-bundle",
+    "description": "Symfony Bundle for Serializing Http Requests & Responses",
+    "type": "symfony-bundle",
+    "license": "LGPA-3",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+          "GeoSocio\\HttpSerializerBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+          "GeoSocio\\HttpSerializerBundle\\": "tests/"
+        }
+    },
+    "require": {
+        "geosocio/http-serializer": "^4.0.0",
+        "symfony/http-kernel": "^3.0",
+        "symfony/dependency-injection": "^3.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.0",
+        "phpunit/phpunit": "^6.2"
+    },
+    "scripts": {
+        "lint": [
+          "phpcs --colors ."
+        ],
+        "test": [
+            "@lint",
+            "phpunit -v"
+        ],
+        "test-coverage": [
+            "@lint",
+            "phpunit -v --coverage-clover coverage.clover"
+        ]
+    }
+}
