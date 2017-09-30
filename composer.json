@@ -16,7 +16,7 @@
         }
     },
     "require": {
-        "geosocio/http-serializer": "^4.0.0",
+        "geosocio/http-serializer": "^5.0.0",
         "symfony/http-kernel": "^3.0",
         "symfony/dependency-injection": "^3.0",
         "symfony/config": "^3.0"
