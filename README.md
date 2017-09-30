@@ -7,3 +7,12 @@ geosocio_http_serializer:
     # Default format exceptions should be rendered in. This null by default.
     default_format: 'json'
 ```
+
+## Group Resolvers
+You may tag services with either
+`geosocio_http_serializer.request_group_resolver` or
+`geosocio_http_serializer.response_group_resolver` to add the service as a Group
+Resolver. The service must implement
+`GeoSocio\HttpSerializer\GroupResolver\RequestGroupResolverInterface` or
+`GeoSocio\HttpSerializer\GroupResolver\ResponseGroupResolverInterface`
+respectively.
