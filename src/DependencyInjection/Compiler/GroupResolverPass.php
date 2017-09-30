@@ -17,10 +17,12 @@ class GroupResolverPass implements CompilerPassInterface
     public function process(ContainerBuilder $container) : void
     {
         $this->addResolvers(
+            $container,
             'geosocio_http_serializer.request_group_resolver_manager',
             'geosocio_http_serializer.request_group_resolver'
         );
         $this->addResolvers(
+            $container,
             'geosocio_http_serializer.response_group_resolver_manager',
             'geosocio_http_serializer.response_group_resolver'
         );
@@ -29,12 +31,13 @@ class GroupResolverPass implements CompilerPassInterface
     /**
      * Add the Resolvers.
      *
+     * @param ContainerBuilder $container
      * @param string $service
      * @param string $tag
      *
      * @return void
      */
-    protected function addResolvers(string $service, string $tag)
+    protected function addResolvers(ContainerBuilder $container, string $service, string $tag)
     {
         if (!$container->has($service)) {
             return;
