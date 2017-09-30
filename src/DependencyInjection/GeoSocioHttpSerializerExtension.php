@@ -6,7 +6,10 @@ use GeoSocio\HttpSerializer\ArgumentResolver\ContentArrayResolver;
 use GeoSocio\HttpSerializer\ArgumentResolver\ContentClassResolver;
 use GeoSocio\HttpSerializer\EventListener\KernelViewListener;
 use GeoSocio\HttpSerializer\EventListener\KernelExceptionListener;
-use GeoSocio\HttpSerializer\Loader\GroupLoader;
+use GeoSocio\HttpSerializer\GroupResolver\RequestGroupResolverManager;
+use GeoSocio\HttpSerializer\GroupResolver\ResponseGroupResolverManager;
+use GeoSocio\HttpSerializer\Loader\RequestGroupLoader;
+use GeoSocio\HttpSerializer\Loader\ResponseGroupLoader;
 use GeoSocio\HttpSerializer\Serializer\ExceptionNormalizer;
 use GeoSocio\HttpSerializer\Serializer\ConstraintViolationNormalizer;
 use Symfony\Component\DependencyInjection\Reference;
@@ -37,12 +40,32 @@ class GeoSocioHttpSerializerExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        // Group Resolver
+        $container->register(
+            'geosocio_http_serializer.request_group_resolver_manager',
+            RequestGroupResolverManager::class
+        )
+            ->setPublic(false);
+        $container->register(
+            'geosocio_http_serializer.response_group_resolver_manager',
+            ResponseGroupResolverManager::class
+        )
+            ->setPublic(false);
+
         // Group Loader
-        $container->register('geosocio_http_serializer.group_loader', GroupLoader::class)
+        $container->register('geosocio_http_serializer.request_group_loader', RequestGroupLoader::class)
             ->setArguments([
                 new Reference('controller_resolver'),
                 new Reference('annotation_reader'),
             ])
+            ->addTag('geosocio_http_serializer.request_group_resolver')
+            ->setPublic(false);
+        $container->register('geosocio_http_serializer.response_group_loader', ResponseGroupLoader::class)
+            ->setArguments([
+                new Reference('controller_resolver'),
+                new Reference('annotation_reader'),
+            ])
+            ->addTag('geosocio_http_serializer.response_group_resolver')
             ->setPublic(false);
 
         // Return Listener
@@ -52,8 +75,8 @@ class GeoSocioHttpSerializerExtension extends Extension
                 $serializer,
                 $serializer,
                 $serializer,
-                new Reference('geosocio_http_serializer.group_loader'),
-                new Reference('event_dispatcher')
+                new Reference('event_dispatcher'),
+                new Reference('geosocio_http_serializer.response_group_resolver_manager'),
             ])
             ->addTag('kernel.event_listener', ['event' => 'kernel.view'])
             ->setPublic(false);
@@ -94,9 +117,9 @@ class GeoSocioHttpSerializerExtension extends Extension
                 $serializer,
                 $serializer,
                 $serializer,
-                new Reference('geosocio_http_serializer.group_loader'),
                 new Reference('event_dispatcher'),
-                new Reference('validator')
+                new Reference('validator'),
+                new Reference('geosocio_http_serializer.request_group_resolver_manager'),
             ])
             ->addTag('controller.argument_value_resolver')
             ->setPublic(false);
