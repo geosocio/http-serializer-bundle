@@ -17,14 +17,14 @@
     },
     "require": {
         "geosocio/http-serializer": "^5.0.0",
-        "symfony/http-kernel": "^3.0",
-        "symfony/dependency-injection": "^3.0",
-        "symfony/config": "^3.0"
+        "symfony/http-kernel": "^3.0|^4.0",
+        "symfony/dependency-injection": "^3.0|^4.0",
+        "symfony/config": "^3.0|^4.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.0",
         "phpunit/phpunit": "^6.2",
-        "symfony/var-dumper": "^3.3"
+        "symfony/var-dumper": "^3.3|^4.0"
     },
     "scripts": {
         "lint": [
